@@ -39,6 +39,36 @@ var Cell = React.createClass({
   }
 });
 
+var CalculatorButton = React.createClass({
+  getDefaultProps: function() {
+    return {
+      text: 0,
+      functional: false,
+      onPress: console.log
+    };
+  },
+  render: function() {
+    var text = this.props.text;
+    var onPress = this.props.onPress;
+    var viewStyles = [styles.cell]
+    var textStyles = [styles.textInside];
+    if (this.props.functional) {
+      viewStyles.push(styles.functionalButton);
+      textStyles.push(styles.functionalText);
+    }
+    return (
+      <TouchableHighlight
+        onPress={onPress.bind(null, text)}
+        underlayColor="transparent"
+        activeOpacity={0.8}>
+        <View style={viewStyles}>
+          <Text style={textStyles}>{text}</Text>
+        </View>
+      </TouchableHighlight>
+    );
+  }
+});
+
 var AwesomeReact = React.createClass({
   getInitialState() {
     console.log("init");
@@ -94,143 +124,28 @@ var AwesomeReact = React.createClass({
         <Text style={styles.title}>Hi, Calculator!</Text>
         <View style={styles.board}>
           <View style={styles.rows}>
-            <TouchableHighlight
-              onPress={this.handlePress.bind(this, 1)}
-              underlayColor="transparent"
-              activeOpacity={0.8}>
-              <View style={styles.cell}>
-                <Text style={styles.textInside}>1</Text>
-              </View>
-            </TouchableHighlight>
-            <TouchableHighlight
-              onPress={this.handlePress.bind(this, 2)}
-              underlayColor="transparent"
-              activeOpacity={0.8}>
-              <View style={styles.cell}>
-                <Text style={styles.textInside}>2</Text>
-              </View>
-            </TouchableHighlight>
-            <TouchableHighlight
-              onPress={this.handlePress.bind(this, 3)}
-              underlayColor="transparent"
-              activeOpacity={0.8}>
-              <View style={styles.cell}>
-                <Text style={styles.textInside}>3</Text>
-              </View>
-            </TouchableHighlight>
-            <TouchableHighlight
-              onPress={this.handleCalMethod.bind(this, '+')}
-              underlayColor="transparent"
-              activeOpacity={0.8}>
-              <View style={[styles.cell, styles.functionalButton]}>
-                <Text style={[styles.textInside, styles.functionalText]}>+</Text>
-              </View>
-            </TouchableHighlight>
-
+            <CalculatorButton text="1" onPress={this.handlePress} />
+            <CalculatorButton text="2" onPress={this.handlePress} />
+            <CalculatorButton text="3" onPress={this.handlePress} />
+            <CalculatorButton text="+" functional="true" onPress={this.handleCalMethod} />
           </View>
           <View style={styles.rows}>
-            <TouchableHighlight
-              onPress={this.handlePress.bind(this, 4)}
-              underlayColor="transparent"
-              activeOpacity={0.8}>
-              <View style={styles.cell}>
-                <Text style={styles.textInside}>4</Text>
-              </View>
-            </TouchableHighlight>
-            <TouchableHighlight
-              onPress={this.handlePress.bind(this, 5)}
-              underlayColor="transparent"
-              activeOpacity={0.8}>
-              <View style={styles.cell}>
-                <Text style={styles.textInside}>5</Text>
-              </View>
-            </TouchableHighlight>
-            <TouchableHighlight
-              onPress={this.handlePress.bind(this, 6)}
-              underlayColor="transparent"
-              activeOpacity={0.8}>
-              <View style={styles.cell}>
-                <Text style={styles.textInside}>6</Text>
-              </View>
-            </TouchableHighlight>
-            <TouchableHighlight
-              onPress={this.handleCalMethod.bind(this, '−')}
-              underlayColor="transparent"
-              activeOpacity={0.8}>
-              <View style={[styles.cell, styles.functionalButton]}>
-                <Text style={[styles.textInside, styles.functionalText]}>−</Text>
-              </View>
-            </TouchableHighlight>
+            <CalculatorButton text="4" onPress={this.handlePress} />
+            <CalculatorButton text="5" onPress={this.handlePress} />
+            <CalculatorButton text="6" onPress={this.handlePress} />
+            <CalculatorButton text="−" functional="true" onPress={this.handleCalMethod} />
           </View>
           <View style={styles.rows}>
-            <TouchableHighlight
-              onPress={this.handlePress.bind(this, 7)}
-              underlayColor="transparent"
-              activeOpacity={0.8}>
-              <View style={styles.cell}>
-                <Text style={styles.textInside}>7</Text>
-              </View>
-            </TouchableHighlight>
-
-            <TouchableHighlight
-              onPress={this.handlePress.bind(this, 8)}
-              underlayColor="transparent"
-              activeOpacity={0.8}>
-              <View style={styles.cell}>
-                <Text style={styles.textInside}>8</Text>
-              </View>
-            </TouchableHighlight>
-            <TouchableHighlight
-              onPress={this.handlePress.bind(this, 9)}
-              underlayColor="transparent"
-              activeOpacity={0.8}>
-              <View style={styles.cell}>
-                <Text style={styles.textInside}>9</Text>
-              </View>
-            </TouchableHighlight>
-            <TouchableHighlight
-              onPress={this.handleCalMethod.bind(this, '×')}
-              underlayColor="transparent"
-              activeOpacity={0.8}>
-              <View style={[styles.cell, styles.functionalButton]}>
-                <Text style={[styles.textInside, styles.functionalText]}>×</Text>
-              </View>
-            </TouchableHighlight>
+            <CalculatorButton text="7" onPress={this.handlePress} />
+            <CalculatorButton text="8" onPress={this.handlePress} />
+            <CalculatorButton text="9" onPress={this.handlePress} />
+            <CalculatorButton text="×" functional="true" onPress={this.handleCalMethod} />
           </View>
           <View style={styles.rows}>
-            <TouchableHighlight
-              onPress={this.handleClear}
-              underlayColor="transparent"
-              activeOpacity={0.8}>
-              <View style={[styles.cell, styles.functionalButton]}>
-                <Text style={[styles.textInside, styles.functionalText]}>AC</Text>
-              </View>
-            </TouchableHighlight>
-
-            <TouchableHighlight
-              onPress={this.handlePress.bind(this, 0)}
-              underlayColor="transparent"
-              activeOpacity={0.8}>
-              <View style={styles.cell}>
-                <Text style={styles.textInside}>0</Text>
-              </View>
-            </TouchableHighlight>
-            <TouchableHighlight
-              onPress={this.handleResult}
-              underlayColor="transparent"
-              activeOpacity={0.8}>
-              <View style={[styles.cell, styles.functionalButton]}>
-                <Text style={[styles.textInside, styles.functionalText]}>=</Text>
-              </View>
-            </TouchableHighlight>
-            <TouchableHighlight
-              onPress={this.handleCalMethod.bind(this, '÷')}
-              underlayColor="transparent"
-              activeOpacity={0.8}>
-              <View style={[styles.cell, styles.functionalButton]}>
-                <Text style={[styles.textInside, styles.functionalText]}>÷</Text>
-              </View>
-            </TouchableHighlight>
+            <CalculatorButton text="AC" functional="true" onPress={this.handleClear} />
+            <CalculatorButton text="0" onPress={this.handlePress} />
+            <CalculatorButton text="=" functional="true" onPress={this.handleResult} />
+            <CalculatorButton text="÷" functional="true" onPress={this.handleCalMethod} />
           </View>
         </View>
         <Text style={styles.showing}>{data}</Text>
